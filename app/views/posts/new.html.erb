@@ -1,4 +1,5 @@
 <%= turbo_frame_tag :modal do %>
+  <%# we use turbomodal stimulus controller just to see if form submission was successful or not %>
   <div data-controller="turbomodal" data-action="turbo:submit-end->turbomodal#submitEnd">
     <div class="mx-auto md:w-2/3 w-full">
       <h1 class="font-bold text-4xl">New post</h1>
