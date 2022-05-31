@@ -1,0 +1,6 @@
+<%= messages.count %>
+<% messages.each do |message| %>
+    <br>
+    <%# <%= message.body %>
+    <%= link_to highlight(message.body, params[:body_search]), message %>
+<% end %>
