@@ -6,6 +6,21 @@ class MessagesController < ApplicationController
     @messages = Message.order(created_at: :desc)
   end
 
+  def search
+    if params[:body_search].present?
+      @messages = Message.filter_by_body(params[:body_search])
+    else
+      @messages = []
+    end
+
+    respond_to do |format|
+      format.turbo_stream do 
+        # this will update the div "search_results" with this _search_results partial with local variable movies!
+        render turbo_stream: turbo_stream.update("search_results", partial: "messages/search_results", locals: { messages: @messages })
+      end
+    end
+  end
+
   # GET /messages/1 or /messages/1.json
   def show
   end

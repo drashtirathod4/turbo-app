@@ -1,0 +1,11 @@
+<p>
+  <%#= form_with url: search_messages_path, method: :post do |form| %>
+    <%#= form.search_field :body_search, oninput: "this.form.requestSubmit()" %>
+  <%# end %>
+
+  <%= form_with url: search_messages_path, method: :post, data: {controller: "debounce", debounce_target: "form"} do |form| %>
+    <%= form.search_field :body_search, data: { action: "input->debounce#search" } %>
+  <% end %>
+</p>
+
+<div id="search_results">Search results</div>
