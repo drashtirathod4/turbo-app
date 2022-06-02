@@ -12,7 +12,7 @@ class MypostsController < ApplicationController
 
   # GET /myposts/new
   def new
-    @mypost = Mypost.new
+    @mypost = Mypost.new mypost_params
   end
 
   # GET /myposts/1/edit
@@ -65,6 +65,6 @@ class MypostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def mypost_params
-      params.require(:mypost).permit(:body, :access, :passcode)
+      params.fetch(:mypost, {}).permit(:body, :access, :passcode)
     end
 end

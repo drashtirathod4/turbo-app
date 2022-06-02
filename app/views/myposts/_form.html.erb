@@ -16,15 +16,27 @@
     <%= form.text_area :body %>
   </div>
 
-  <div>
-    <%= form.label :access, style: "display: block" %>
-    <%= form.text_field :access %>
-  </div>
+  <div id="turbo-stream-target">hello</div>
 
-  <div>
-    <%= form.label :passcode, style: "display: block" %>
-    <%= form.text_field :passcode %>
+  <div data-controller="form-element">
+    <%= form.button "Validate", formaction: new_mypost_path, formmethod: :get, data: { turbo_frame: :passcode_field, form_element_target: "submitbtn" } %>
+
+    <div>
+      <%= form.label :access, style: "display: block" %>
+      <%= form.select :access, Mypost.accesses, {include_blank: true}, { data: { action: "change->form-element#remotesubmit" } } %>
+    </div>
   </div>
+  
+  <%= turbo_frame_tag :passcode_field do %>
+    <%= mypost.passcode_protected? %>
+    <% if mypost.passcode_protected? %>
+      <%= turbo_stream.update "turbo-stream-target", html: Time.zone.now %>
+      <div>
+        <%= form.label :passcode, style: "display: block" %>
+        <%= form.text_field :passcode %>
+      </div>
+    <% end %>
+  <% end %>
 
   <div>
     <%= form.submit %>
