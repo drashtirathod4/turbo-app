@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'home/index'
   root "messages#index"
   resources :messages do
     member do
