@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'static_pages/landing_page'
+  get 'static_pages/dashboard'
   root "messages#index"
   resources :messages do
     member do
