@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :users
   get 'static_pages/landing_page'
   get 'static_pages/dashboard'
-  root "messages#index"
+  root "static_pages#landing_page"
+
+  # root "messages#index"
   resources :messages do
     member do
       post :edit
